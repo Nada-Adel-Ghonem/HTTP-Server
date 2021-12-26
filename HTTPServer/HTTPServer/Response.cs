@@ -26,15 +26,22 @@ namespace HTTPServer
                 return responseString;
             }
         }
-        StatusCode code;
-        List<string> headerLines = new List<string>();
+
         public Response(StatusCode code, string contentType, string content, string redirectoinPath)
         {
-            throw new NotImplementedException();
+
             // TODO: Add headlines (Content-Type, Content-Length,Date, [location if there is redirection])
+            responseString.Concat(GetStatusLine(code) + "\r\n");
+            responseString.Concat("Content-Type: " + contentType + "\r\n");
+            responseString.Concat("Content-Length: " + content.Length + "\r\n");
+            responseString.Concat("Date:" + System.DateTime.Now.ToUniversalTime().ToString("r") + "\r\n");
 
+            if (code.Equals(StatusCode.Redirect))
+                responseString.Concat("Location: " + redirectoinPath + "\r\n");
 
-            // TODO: Create the request string
+            responseString.Concat("\r\n" + content);
+
+            // TODO: Create the request string ??
 
         }
 
@@ -42,7 +49,7 @@ namespace HTTPServer
         {
             // TODO: Create the response status line and return it
             string statusLine = string.Empty;
-
+            statusLine.Concat("HTTP/1.1" + ' ' + (int) code + ' ' + code);
             return statusLine;
         }
     }
