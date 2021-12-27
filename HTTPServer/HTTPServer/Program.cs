@@ -6,13 +6,13 @@ using System.IO;
 
 namespace HTTPServer {
     class Program {
+        static string RedirectionRulesFilePath = "C:\\redirectionRules.txt";
         static void Main(string[] args) {
             // TODO: Call CreateRedirectionRulesFile() function to create the rules of redirection 
             CreateRedirectionRulesFile();
             //Start server
-            string filePath = "C:\\redirectionRules.txt";
             // 1) Make server object on port 1000
-            Server server = new Server(1000, filePath);
+            Server server = new Server(1000, RedirectionRulesFilePath);
             // 2) Start Server
             server.StartServer();
         }
@@ -21,7 +21,7 @@ namespace HTTPServer {
         };
         static void CreateRedirectionRulesFile() {
             // TODO: Create file named redirectionRules.txt
-            FileStream redirectionRulesFile = new FileStream("C:\\redirectionRules.txt", FileMode.CreateNew);
+            FileStream redirectionRulesFile = new FileStream(RedirectionRulesFilePath, FileMode.OpenOrCreate);
             StreamWriter streamWriter = new StreamWriter(redirectionRulesFile);
             // each line in the file specify a redirection rule
             foreach (string rule in RedirectionRules) {
