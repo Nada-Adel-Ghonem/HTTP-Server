@@ -35,7 +35,7 @@ namespace HTTPServer
             header = string.Concat(header, "Content-Type: " + contentType + "\r\n");
             header = string.Concat(header, "Content-Length: " + content.Length + "\r\n");
             header = string.Concat(header, "Date:" + DateTime.Now.ToString() + "\r\n");
-            Console.WriteLine(header);
+           
             if (redirectoinPath != null)
                 header = string.Concat(header, "Location: " + redirectoinPath + "\r\n");
 

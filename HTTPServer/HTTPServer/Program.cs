@@ -10,9 +10,9 @@ namespace HTTPServer {
             // TODO: Call CreateRedirectionRulesFile() function to create the rules of redirection 
             CreateRedirectionRulesFile();
             //Start server
-            string filePath = "D:\\redirectionRules.txt";
+            string RedirectionRulesFilePath = "D:\\redirectionRules.txt";
             // 1) Make server object on port 1000
-            Server server = new Server(1000, filePath);
+            Server server = new Server(1000, RedirectionRulesFilePath);
             // 2) Start Server
             server.StartServer();
         }
