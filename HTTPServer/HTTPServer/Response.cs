@@ -29,17 +29,17 @@ namespace HTTPServer
 
         public Response(StatusCode code, string contentType, string content, string redirectoinPath)
         {
-
+            string header = "";
             // TODO: Add headlines (Content-Type, Content-Length,Date, [location if there is redirection])
-            responseString.Concat(GetStatusLine(code) + "\r\n");
-            responseString.Concat("Content-Type: " + contentType + "\r\n");
-            responseString.Concat("Content-Length: " + content.Length + "\r\n");
-            responseString.Concat("Date:" + System.DateTime.Now.ToUniversalTime().ToString("r") + "\r\n");
+            //header.Concat(GetStatusLine(code) + "\r\n");
+            header = string.Concat(header, "Content-Type: " + contentType + "\r\n");
+            header = string.Concat(header, "Content-Length: " + content.Length + "\r\n");
+            header = string.Concat(header, "Date:" + DateTime.Now.ToString() + "\r\n");
+            Console.WriteLine(header);
+            if (redirectoinPath != null)
+                header = string.Concat(header, "Location: " + redirectoinPath + "\r\n");
 
-            if (code.Equals(StatusCode.Redirect))
-                responseString.Concat("Location: " + redirectoinPath + "\r\n");
-
-            responseString.Concat("\r\n" + content);
+            responseString = GetStatusLine(code) + "\r\n" + header + "\r\n" + content;
 
             // TODO: Create the request string ??
 
@@ -47,9 +47,35 @@ namespace HTTPServer
 
         private string GetStatusLine(StatusCode code)
         {
+
             // TODO: Create the response status line and return it
             string statusLine = string.Empty;
-            statusLine.Concat("HTTP/1.1" + ' ' + (int) code + ' ' + code);
+            string errorMessage;
+            switch (code)
+            {
+                case StatusCode.BadRequest:
+                    errorMessage = "Bad Request";
+                    break;
+                case StatusCode.OK:
+                    errorMessage = "OK";
+                    break;
+                case StatusCode.InternalServerError:
+                    errorMessage = "Internal Server Error";
+                    break;
+                case StatusCode.Redirect:
+                    errorMessage = "Redirect";
+                    break;
+                case StatusCode.NotFound:
+                    errorMessage = "Not Found";
+                    break;
+                default:
+                    errorMessage = "";
+                    break;
+
+            }
+
+            statusLine = string.Concat(Configuration.ServerHTTPVersion + " " + (int)code + " " + errorMessage);
+
             return statusLine;
         }
     }

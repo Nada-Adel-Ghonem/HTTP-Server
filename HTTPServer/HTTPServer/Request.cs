@@ -81,6 +81,7 @@ namespace HTTPServer
             else
                 httpVersion = HTTPVersion.HTTP09;
 
+            headerLines = new Dictionary<string, string>();
 
             // Load header lines into HeaderLines dictionary
             int i = 1;

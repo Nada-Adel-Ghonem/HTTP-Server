@@ -15,7 +15,6 @@ namespace HTTPServer {
             //message:
             sr.WriteLine("Message: " + ex.Message);
             sr.WriteLine();
-            sr.Close();
         }
     }
 }

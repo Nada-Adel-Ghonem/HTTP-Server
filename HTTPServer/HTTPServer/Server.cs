@@ -188,7 +188,7 @@ namespace HTTPServer
                 // TODO: using the filepath paramter read the redirection rules from file 
                 string[] redirectionRules = File.ReadAllLines(filePath);
                 Configuration.RedirectionRules = new Dictionary<string, string>();
-
+                
                 foreach (string line in redirectionRules)
                 {
                     string[] keyValuePair = line.Split(',');
